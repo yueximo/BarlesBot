@@ -77,7 +77,7 @@ These are the supported commands:
       break;
 
     case 'penguin':
-      message.channel.send(penguin);
+      message.channel.send({ embeds: [penguin] });
   }
 });
 
