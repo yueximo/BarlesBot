@@ -42,17 +42,19 @@ client.on('messageCreate', (message) => {
       'https://media.discordapp.net/attachments/274726387112476672/929160492495290438/IMG_0424.gif'
     );
 
+  let help = new Discord.MessageEmbed()
+    .setTitle('Commands')
+    .setDescription('These are the supported commands:')
+    .addFields(
+      { name: '$help', value: 'Displays the help menu' },
+      { name: '$clown <user>', value: 'Clowns the user' },
+      { name: '$annoy <user>', value: 'Spam the user with pings' },
+      { name: '$penguin', value: 'post an awesome penguin gif' }
+    );
   switch (command) {
     //help command
     case 'help':
-      message.channel.send(`
-These are the supported commands:
-
-**$help** - Displays the help menu
-**$clown <user>** - Clowns the user
-**$annoy <user>** - Spam the user with pings
-**$penguin** - post an awesome penguin gif
-      `);
+      message.channel.send({ embeds: [help] });
       break;
 
     //testing command
