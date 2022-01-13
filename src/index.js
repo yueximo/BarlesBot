@@ -38,9 +38,9 @@ client.on('messageCreate', (message) => {
   //Creates an embed link for penguin gif
   let penguin = new Discord.MessageEmbed()
     .setColor(0x000000)
-    .attachFiles([
-      'https://media.discordapp.net/attachments/274726387112476672/929160492495290438/IMG_0424.gif',
-    ]);
+    .setImage(
+      'https://media.discordapp.net/attachments/274726387112476672/929160492495290438/IMG_0424.gif'
+    );
 
   switch (command) {
     //help command
