@@ -1,0 +1,2 @@
+# BarlesBot
+Awesome Discord Bot
