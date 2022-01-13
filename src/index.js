@@ -51,6 +51,7 @@ These are the supported commands:
 **$help** - Displays the help menu
 **$clown <user>** - Clowns the user
 **$annoy <user>** - Spam the user with pings
+**$penguin - post an awesome penguin gif
       `);
       break;
 
