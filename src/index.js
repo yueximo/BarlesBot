@@ -61,4 +61,4 @@ These are the supported commands:
   }
 });
 
-client.login(process.env.TOKEN);
+client.login(process.env.BARLESBOT_TOKEN);
