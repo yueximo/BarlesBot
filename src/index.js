@@ -20,7 +20,7 @@ client.on('messageCreate', (message) => {
   }
 
   //list of commands so we only allow certain things
-  let ListofCommands = ['test', 'clown', 'help', 'annoy'];
+  let ListofCommands = ['test', 'clown', 'help', 'annoy', 'penguin'];
 
   const args = message.content.slice(prefix.length).trim().split(/\s+/g);
   const command = args.shift().toLowerCase();
@@ -32,7 +32,16 @@ client.on('messageCreate', (message) => {
     return message.channel.send('Please enter a valid command!');
   }
 
+  //Gets the user that is @ in the command
   let member = message.mentions.users.first();
+
+  //Creates an embed link for penguin gif
+  let penguin = new Discord.MessageEmbed()
+    .setColor(0x000000)
+    .attachFiles(
+      'https://media.discordapp.net/attachments/274726387112476672/929160492495290438/IMG_0424.gif'
+    );
+
   switch (command) {
     //help command
     case 'help':
@@ -60,11 +69,15 @@ These are the supported commands:
       );
       break;
 
+    //annoy command
     case 'annoy':
       for (let i = 0; i < 15; i++) {
         message.channel.send(`<@${member.id}>`);
       }
       break;
+
+    case 'penguin':
+      message.channel.send(penguin);
   }
 });
 
