@@ -20,7 +20,7 @@ client.on('messageCreate', (message) => {
   }
 
   //list of commands so we only allow certain things
-  let ListofCommands = ['test', 'clown', 'help'];
+  let ListofCommands = ['test', 'clown', 'help', 'annoy'];
 
   const args = message.content.slice(prefix.length).trim().split(/\s+/g);
   const command = args.shift().toLowerCase();
@@ -57,6 +57,12 @@ These are the supported commands:
       message.channel.send(
         `<@${member.id}> is as big a clown as <@446450980435918855> <:OMEGALUL:430457170165891072>`
       );
+      break;
+
+    case 'annoy':
+      for (let i = 0; i < 10; i++) {
+        message.channel.send(`<@${member.id}>`);
+      }
       break;
   }
 });
