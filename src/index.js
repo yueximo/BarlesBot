@@ -40,7 +40,8 @@ client.on('messageCreate', (message) => {
 These are the supported commands:
 
 **$help** - Displays the help menu
-**$clown <user>**- Clowns the user
+**$clown <user>** - Clowns the user
+**$annoy <user>** - Spam the user with pings
       `);
       break;
 
