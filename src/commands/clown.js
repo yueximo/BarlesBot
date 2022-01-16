@@ -1,5 +1,6 @@
 module.exports = {
   name: 'clown',
+  aliases: ['barles', 'clownhim'],
   description: 'Clowns the user',
   execute(client, message, args, Discord) {
     let member = message.mentions.users.first();

@@ -1,5 +1,6 @@
 module.exports = {
   name: 'annoy',
+  aliases: ['spam', 'spamping', 'harrass', 'geton'],
   description: 'Spam the user with pings',
   execute(client, message, args, Discord) {
     let member = message.mentions.users.first();
