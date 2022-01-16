@@ -57,4 +57,4 @@ client.on('messageCreate', (message) => {
   }
 });
 
-client.login('OTMyMTUyOTUyNDAyMTAwMjU0.YeO1Fg.RMYDznngTV_j6zMW6FKNMo1tOzc');
+client.login(process.env.BARLESBOT_TOKEN);
