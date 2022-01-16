@@ -22,17 +22,6 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-let help = new Discord.MessageEmbed()
-  .setTitle('Commands')
-  .setDescription('These are the supported commands:')
-  .addFields(
-    { name: '$help', value: 'Displays the help menu' },
-    { name: '$clown <user>', value: 'Clowns the user' },
-    { name: '$annoy <user>', value: 'Spam the user with pings' },
-    { name: '$penguin', value: 'post an awesome penguin gif' }
-  );
-
-//message when the bot logs in
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
