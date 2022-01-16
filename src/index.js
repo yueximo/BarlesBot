@@ -1,87 +1,60 @@
-require('dotenv').config();
+require('dotenv').config;
+
 const Discord = require('discord.js');
 
 const client = new Discord.Client({
   intents: ['GUILDS', 'GUILD_MESSAGES'],
 });
 
+//setting the prefix to $
+const prefix = '$';
+
+const fs = require('fs');
+
+client.commands = new Discord.Collection();
+
+const commandFiles = fs
+  .readdirSync('./src/commands')
+  .filter((file) => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
+}
+
+let help = new Discord.MessageEmbed()
+  .setTitle('Commands')
+  .setDescription('These are the supported commands:')
+  .addFields(
+    { name: '$help', value: 'Displays the help menu' },
+    { name: '$clown <user>', value: 'Clowns the user' },
+    { name: '$annoy <user>', value: 'Spam the user with pings' },
+    { name: '$penguin', value: 'post an awesome penguin gif' }
+  );
+
 //message when the bot logs in
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-//setting the prefix to $
-const prefix = '$';
-
 client.on('messageCreate', (message) => {
-  //if the message is from the bot or does not start with the prefix, then we stop
-  if (message.author.bot || !message.content.startsWith(prefix)) {
-    return;
-  }
-
-  //list of commands so we only allow certain things
-  let ListofCommands = ['test', 'clown', 'help', 'annoy', 'penguin'];
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   const args = message.content.slice(prefix.length).trim().split(/\s+/g);
   const command = args.shift().toLowerCase();
-  let userInputCommand = command;
 
-  let isValid = ListofCommands.includes(userInputCommand);
-
-  if (!isValid) {
-    return message.channel.send('Please enter a valid command!');
+  if (command === 'help') {
+    client.commands.get('help').execute(message, args);
   }
-
-  //Gets the user that is @ in the command
-  let member = message.mentions.users.first();
-
-  //Creates an embed link for penguin gif
-  let penguin = new Discord.MessageEmbed()
-    .setColor(0x000000)
-    .setImage(
-      'https://media.discordapp.net/attachments/274726387112476672/929160492495290438/IMG_0424.gif'
-    );
-
-  let help = new Discord.MessageEmbed()
-    .setTitle('Commands')
-    .setDescription('These are the supported commands:')
-    .addFields(
-      { name: '$help', value: 'Displays the help menu' },
-      { name: '$clown <user>', value: 'Clowns the user' },
-      { name: '$annoy <user>', value: 'Spam the user with pings' },
-      { name: '$penguin', value: 'post an awesome penguin gif' }
-    );
-  switch (command) {
-    //help command
-    case 'help':
-      message.channel.send({ embeds: [help] });
-      break;
-
-    //testing command
-    case 'test':
-      message.channel.send('Test worked');
-      break;
-
-    //clown command
-    case 'clown':
-      if (!member) {
-        return message.reply('Could not find the mentioned user.');
-      }
-      message.channel.send(
-        `<@${member.id}> is as big a clown as <@446450980435918855> <:OMEGALUL:430457170165891072>`
-      );
-      break;
-
-    //annoy command
-    case 'annoy':
-      for (let i = 0; i < 15; i++) {
-        message.channel.send(`<@${member.id}>`);
-      }
-      break;
-
-    case 'penguin':
-      message.channel.send({ embeds: [penguin] });
+  if (command == 'clown') {
+    client.commands.get('clown').execute(message, args);
+  }
+  if (command == 'annoy') {
+    client.commands.get('annoy').execute(message, args);
+  }
+  if (command == 'penguin') {
+    client.commands.get('penguin').execute(message, args);
   }
 });
 
-client.login(process.env.BARLESBOT_TOKEN);
+client.login('OTMyMTUyOTUyNDAyMTAwMjU0.YeO1Fg.RMYDznngTV_j6zMW6FKNMo1tOzc');
