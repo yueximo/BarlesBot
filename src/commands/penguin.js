@@ -1,6 +1,6 @@
 module.exports = {
   name: 'penguin',
-  aliases: ['pen', 'peng', 'penguinggif'],
+  aliases: ['pen', 'peng', 'penguingif'],
   description: 'Post an awesome penuin gif',
   execute(client, message, args, Discord) {
     let penguin = new Discord.MessageEmbed()
