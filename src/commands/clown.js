@@ -1,7 +1,7 @@
 module.exports = {
   name: 'clown',
   description: 'Clowns the user',
-  execute(message, args) {
+  execute(client, message, args, Discord) {
     let member = message.mentions.users.first();
     if (!member) {
       return message.reply('Could not find the mentioned user.');

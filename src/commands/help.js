@@ -1,8 +1,7 @@
 module.exports = {
   name: 'help',
   description: 'Shows the different commands that can be run',
-  execute(message, args) {
-    const Discord = require('discord.js');
+  execute(client, message, args, Discord) {
     let help = new Discord.MessageEmbed()
       .setTitle('Commands')
       .setDescription('These are the supported commands:')

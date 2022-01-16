@@ -1,7 +1,7 @@
 module.exports = {
   name: 'annoy',
   description: 'Spam the user with pings',
-  execute(message, args) {
+  execute(client, message, args, Discord) {
     let member = message.mentions.users.first();
     if (!member) {
       return message.reply('Could not find the mentioned user.');

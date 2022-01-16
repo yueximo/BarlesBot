@@ -6,7 +6,8 @@
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.5.1",
     "dotenv": "^11.0.0",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "fs": "^0.0.1-security"
   },
   "name": "barlesbot",
   "version": "1.0.0",

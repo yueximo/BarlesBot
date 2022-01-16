@@ -1,8 +1,7 @@
 module.exports = {
   name: 'penguin',
   description: 'Post an awesome penuin gif',
-  execute(message, args) {
-    const Discord = require('discord.js');
+  execute(client, message, args, Discord) {
     let penguin = new Discord.MessageEmbed()
       .setColor(0x000000)
       .setImage(
