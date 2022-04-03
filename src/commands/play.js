@@ -5,7 +5,7 @@ module.exports = {
   execute(client, message, args, Discord) {
     //play command from youtube link
     if (args[0].includes('youtube.com')) {
-              const voiceChannel = message.member.voice.channel;
+      const voiceChannel = message.member.voice.channel;
       if (!voiceChannel) {
         return message.channel.send(
           'You need to be in a voice channel to play music!'
@@ -22,7 +22,7 @@ module.exports = {
           'I cannot speak in this voice channel, make sure I have the proper permissions!'
         );
       }
-      const songInfo = await ytdl.getInfo(args[0]);
+      const songInfo = ytdl.getInfo(args[0]);
       const song = {
         title: songInfo.title,
         url: songInfo.video_url,
