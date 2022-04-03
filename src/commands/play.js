@@ -16,7 +16,7 @@ module.exports = {
       if (!permissions.has('SPEAK')) {
         return message.channel.send('I cannot speak in this voice channel, make sure I have the proper permissions!');
       }
-      const songInfo = await ytdl.getInfo(args[0]);
+      const songInfo =  ytdl.getInfo(args[0]);
       const song = {
         title: songInfo.title,
         url: songInfo.video_url,
