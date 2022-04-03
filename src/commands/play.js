@@ -3,37 +3,27 @@ module.exports = {
   aliases: ['p'],
   description: 'plays a song from youtube',
   execute(client, message, args, Discord) {
-    //play command from youtube link
-    if (args[0].includes('youtube.com')) {
-      const voiceChannel = message.member.voice.channel;
-      if (!voiceChannel) {
-        return message.channel.send(
-          'You need to be in a voice channel to play music!'
-        );
-      }
-      const permissions = voiceChannel.permissionsFor(message.client.user);
-      if (!permissions.has('CONNECT')) {
-        return message.channel.send(
-          'I cannot connect to your voice channel, make sure I have the proper permissions!'
-        );
-      }
-      if (!permissions.has('SPEAK')) {
-        return message.channel.send(
-          'I cannot speak in this voice channel, make sure I have the proper permissions!'
-        );
-      }
-      const songInfo = ytdl.getInfo(args[0]);
-      const song = {
-        title: songInfo.title,
-        url: songInfo.video_url,
-      };
-      if (!client.queue) {
-        client.queue = [];
-      }
-      client.queue.push(song);
-      if (!client.dispatcher) {
+    const serverQueue = client.queue.find(
+      (q) => q.guildID === message.guild.id
+    );
+    if (!serverQueue) {
+      return message.channel.send('There is nothing playing.');
+    }
+    const dispatcher = (client.dispatcher = message.guild.voice.connection.play(
+      ytdl(serverQueue.url, {
+        filter: 'audioonly',
+      })
+    ));
+    dispatcher.on('finish', () => {
+      client.queue.shift();
+      if (client.queue.length > 0) {
         play(client, message, Discord);
       }
-    }
+    });
+    dispatcher.on('error', (err) => {
+      console.error(err);
+    });
+    dispatcher.setVolumeLogarithmic(serverQueue.volume / 100);
+    message.channel.send(`Now playing: **${serverQueue.title}**`);
   },
 };
