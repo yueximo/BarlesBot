@@ -3,27 +3,15 @@ module.exports = {
   aliases: ['p'],
   description: 'plays a song from youtube',
   execute(client, message, args, Discord) {
-    const serverQueue = client.queue.find(
-      (q) => q.guildID === message.guild.id
+    const ytdl = require('ytdl-core');
+    const streamOptions = { seek: 0, volume: 1 };
+    const stream = ytdl(args[0], { filter: 'audioonly' });
+    const dispatcher = message.guild.voiceConnection.playStream(
+      stream,
+      streamOptions
     );
-    if (!serverQueue) {
-      return message.channel.send('There is nothing playing.');
-    }
-    const dispatcher = (client.dispatcher = message.guild.voice.connection.play(
-      ytdl(serverQueue.url, {
-        filter: 'audioonly',
-      })
-    ));
-    dispatcher.on('finish', () => {
-      client.queue.shift();
-      if (client.queue.length > 0) {
-        play(client, message, Discord);
-      }
+    dispatcher.on('end', () => {
+      message.channel.send('Song ended!');
     });
-    dispatcher.on('error', (err) => {
-      console.error(err);
-    });
-    dispatcher.setVolumeLogarithmic(serverQueue.volume / 100);
-    message.channel.send(`Now playing: **${serverQueue.title}**`);
   },
 };
